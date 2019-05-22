@@ -19,18 +19,21 @@ class Firebase {
     /* Helper */
 
     this.fieldValue = app.firestore.FieldValue;
-    this.emailAuthProvider = app.auth.EmailAuthProvider;
 
     /* Firebase APIs */
 
     this.auth = app.auth();
     this.db = app.firestore();
 
+    let settings = {
+      timestampsInSnapshots: true,
+    };
+
+    this.db.settings(settings);
+
     /* Social Sign In Method Provider */
 
     this.googleProvider = new app.auth.GoogleAuthProvider();
-    this.facebookProvider = new app.auth.FacebookAuthProvider();
-    this.twitterProvider = new app.auth.TwitterAuthProvider();
   }
 
   // *** Auth API ***
@@ -82,6 +85,12 @@ class Firebase {
   message = uid => this.db.doc(`messages/${uid}`);
 
   messages = () => this.db.collection('messages');
+
+  // *** Loan API ***
+
+  loan = uid => this.db.doc(`loans/${uid}`);
+
+  loans = () => this.db.collection('loans');
 }
 
 export default Firebase;

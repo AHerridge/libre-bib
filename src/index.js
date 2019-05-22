@@ -6,11 +6,16 @@ import * as serviceWorker from './serviceWorker';
 
 import App from './components/App';
 import Firebase, { FirebaseContext } from './components/Firebase';
+import GoogleBooks, {
+  GoogleBooksContext,
+} from './components/GoogleBooks';
 
 ReactDOM.render(
-  <FirebaseContext.Provider value={new Firebase()}>
-    <App />
-  </FirebaseContext.Provider>,
+  <GoogleBooksContext.Provider value={new GoogleBooks()}>
+    <FirebaseContext.Provider value={new Firebase()}>
+      <App />
+    </FirebaseContext.Provider>
+  </GoogleBooksContext.Provider>,
   document.getElementById('root'),
 );
 
