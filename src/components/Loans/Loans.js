@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 
 import { AuthUserContext } from '../Session';
+import { withAuthorization } from '../Session';
 import { withFirebase } from '../Firebase';
 import { withGoogleBooks } from '../GoogleBooks';
 import LoanList from './LoanList';
@@ -11,8 +12,8 @@ class Loans extends Component {
     super(props);
 
     this.state = {
-      loading: false,
       loans: [],
+      loading: false,
     };
   }
 
@@ -25,36 +26,29 @@ class Loans extends Component {
 
     this.unsubscribe = this.props.firebase
       .loans()
-      .where('userId', '==', 'HBhOkecqgQfeKTvE2Sy9fpVPIb23')
+      .where('userId', '==', this.props.authUser.id)
       .onSnapshot(snapshot => {
         if (snapshot.size) {
           let loans = [];
+          let loaded = 0;
           snapshot.forEach(doc => {
-            let loan = { id: doc.id, book: {}, user: {} };
+            let loan = {
+              id: doc.id,
+              book: {},
+              user: this.props.authUser,
+            };
 
-            console.log(doc.data().bookId);
             this.props.googlebooks
               .findOne(`isbn: ${doc.data().bookId}`)
               .then(result => {
                 loans[loans.indexOf(loan)].book = result;
-                this.setState({ loans });
+
+                loaded++;
+                if (loaded === loans.length)
+                  this.setState({ loans, loading: false });
               });
 
-            console.log(doc.data().userId);
-            this.props.firebase
-              .user(doc.data().userId)
-              .get()
-              .then(result => {
-                loans[loans.indexOf(loan)].user = result.data();
-                this.setState({ loans });
-              });
-            // TODO loan.user = authUser;
             loans.push(loan);
-          });
-
-          this.setState({
-            loans: loans,
-            loading: false,
           });
         } else {
           this.setState({ loans: null, loading: false });
@@ -88,4 +82,5 @@ class Loans extends Component {
 export default compose(
   withGoogleBooks,
   withFirebase,
+  withAuthorization(authUser => !!authUser),
 )(Loans);

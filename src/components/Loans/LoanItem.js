@@ -4,8 +4,6 @@ class LoanItem extends Component {
   render() {
     const { loan } = this.props;
 
-    console.log(loan);
-
     return (
       <React.Fragment>
         <li>

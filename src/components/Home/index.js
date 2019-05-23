@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 
-import { withAuthorization, withEmailVerification } from '../Session';
+import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
 import Loans from '../Loans';
 
 const HomePage = () => (
@@ -9,7 +9,9 @@ const HomePage = () => (
     <h1>Home Page</h1>
     <p>The Home Page is accessible by every signed in user.</p>
 
-    <Loans />
+    <AuthUserContext.Consumer>
+      {authUser => <Loans authUser={authUser} />}
+    </AuthUserContext.Consumer>
   </div>
 );
 

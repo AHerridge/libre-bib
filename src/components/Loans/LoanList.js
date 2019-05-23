@@ -5,7 +5,7 @@ import LoanItem from './LoanItem';
 const LoanList = ({ loans }) => (
   <ul>
     {loans.map(loan => (
-      <LoanItem key={loan.uid} loan={loan} />
+      <LoanItem key={loan.id} loan={loan} />
     ))}
   </ul>
 );
