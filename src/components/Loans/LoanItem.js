@@ -7,11 +7,11 @@ class LoanItem extends Component {
     return (
       <React.Fragment>
         <li>
-          <h4>
+          <p>
             ID: {loan.id ? loan.id : 'Not Found'}
             Book: {loan.book ? loan.book.title : 'Not Found'}
             User: {loan.user ? loan.user.username : 'Not Found'}
-          </h4>
+          </p>
         </li>
       </React.Fragment>
     );

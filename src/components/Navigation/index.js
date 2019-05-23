@@ -19,36 +19,52 @@ const Navigation = () => (
 );
 
 const NavigationAuth = ({ authUser }) => (
-  <ul>
-    <li>
-      <Link to={ROUTES.LANDING}>Landing</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.HOME}>Home</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.ACCOUNT}>Account</Link>
-    </li>
-    {!!authUser.roles[ROLES.ADMIN] && (
-      <li>
-        <Link to={ROUTES.ADMIN}>Admin</Link>
-      </li>
-    )}
-    <li>
-      <SignOutButton />
-    </li>
-  </ul>
+  <nav>
+    <div className="nav-wrapper">
+      <div className="container">
+        <Link to={ROUTES.LANDING} className="brand-logo">
+          Libre-Bib
+        </Link>
+        <ul id="nav-mobile" className="right hide-on-med-and-down">
+          <li>
+            <Link to={ROUTES.HOME}>Home</Link>
+          </li>
+          <li>
+            <Link to="/browse">Browse</Link>
+          </li>
+          <li>
+            <Link to="/scan">Scan</Link>
+          </li>
+          {!!authUser.roles[ROLES.ADMIN] && (
+            <li>
+              <Link to={ROUTES.ADMIN}>Admin</Link>
+            </li>
+          )}
+          <li>{authUser.username}</li>
+          <li>
+            <SignOutButton />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 );
 
 const NavigationNonAuth = () => (
-  <ul>
-    <li>
-      <Link to={ROUTES.LANDING}>Landing</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-    </li>
-  </ul>
+  <nav>
+    <div className="nav-wrapper">
+      <div className="container">
+        <Link to="/" className="brand-logo">
+          Libre-Bib
+        </Link>
+        <ul id="nav-mobile" className="right hide-on-med-and-down">
+          <li>
+            <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 );
 
 export default Navigation;

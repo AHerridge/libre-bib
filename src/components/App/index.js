@@ -11,18 +11,21 @@ import AdminPage from '../Admin';
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 
+import '../../../node_modules/materialize-css/dist/css/materialize.css';
+import '../../../node_modules/materialize-css/dist/js/materialize.js';
+
 const App = () => (
   <Router>
     <div>
       <Navigation />
 
-      <hr />
-
-      <Route exact path={ROUTES.LANDING} component={LandingPage} />
-      <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-      <Route path={ROUTES.HOME} component={HomePage} />
-      <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-      <Route path={ROUTES.ADMIN} component={AdminPage} />
+      <div className="container">
+        <Route exact path={ROUTES.LANDING} component={LandingPage} />
+        <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+        <Route path={ROUTES.HOME} component={HomePage} />
+        <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+        <Route path={ROUTES.ADMIN} component={AdminPage} />
+      </div>
     </div>
   </Router>
 );
