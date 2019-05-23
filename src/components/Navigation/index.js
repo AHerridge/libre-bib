@@ -29,9 +29,9 @@ const NavigationAuth = ({ authUser }) => (
           <li>
             <Link to={ROUTES.HOME}>Home</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/browse">Browse</Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/scan">Scan</Link>
           </li>
