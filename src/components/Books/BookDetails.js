@@ -24,7 +24,7 @@ class BookDetails extends Component {
         {book ? (
           <div>
             <div className="row">
-              <div className="col s4">
+              <div className="col l4">
                 <img
                   className="materialboxed responsive-img"
                   width="200"
@@ -32,14 +32,14 @@ class BookDetails extends Component {
                   alt="Book Cover"
                 />
               </div>
-              <div className="col s8">
-                <h1>{book.title}</h1>
-                <h3>{book.authors}</h3>
+              <div className="col l8">
+                <h3>{book.title}</h3>
+                <h4>{book.authors}</h4>
               </div>
             </div>
             <div className="row">
               <div className="col s12">
-                <h4>{book.description}</h4>
+                <p>{book.description}</p>
               </div>
             </div>
             <div className="row">
@@ -50,7 +50,11 @@ class BookDetails extends Component {
             </div>
           </div>
         ) : (
-          <center><h4>Book with ID: {this.props.match.params.id} was not found</h4></center>
+          <center>
+            <h4>
+              Book with ID: {this.props.match.params.id} was not found
+            </h4>
+          </center>
         )}
       </div>
     );

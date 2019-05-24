@@ -67,6 +67,8 @@ class Loans extends Component {
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
+            <h3>Loans</h3>
+
             {loading && <div>Loading ...</div>}
 
             {loans && <LoanList authUser={authUser} loans={loans} />}
