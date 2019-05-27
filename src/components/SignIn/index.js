@@ -34,11 +34,12 @@ class SignInGoogleBase extends Component {
       .doSignInWithGoogle()
       .then(socialAuthUser => {
         // Create a user in your Firebase Realtime Database too
+        console.log(socialAuthUser);
         return this.props.firebase.user(socialAuthUser.user.uid).set(
           {
             username: socialAuthUser.user.displayName,
             email: socialAuthUser.user.email,
-            // roles: [],
+            roles: [],
           },
           { merge: true },
         );

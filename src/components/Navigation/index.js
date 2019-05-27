@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AuthUserContext } from '../Session';
@@ -9,13 +9,7 @@ import M from 'materialize-css';
 
 const Navigation = () => (
   <AuthUserContext.Consumer>
-    {authUser =>
-      authUser ? (
-        <NavigationAuth authUser={authUser} />
-      ) : (
-        <NavigationNonAuth />
-      )
-    }
+    {authUser => <NavigationAuth authUser={authUser} />}
   </AuthUserContext.Consumer>
 );
 
@@ -27,6 +21,52 @@ class NavigationAuth extends Component {
 
   render() {
     const { authUser } = this.props;
+
+    let links = null;
+
+    if (authUser) {
+      links = (
+        <Fragment>
+          <li>
+            <Link to={ROUTES.HOME}>
+              <i className="material-icons left">home</i>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/scan">
+              <i className="material-icons left">search</i>
+              Search
+            </Link>
+          </li>
+          {authUser.roles && authUser.roles.includes(ROLES.ADMIN) && (
+            <li>
+              <Link to={ROUTES.ADMIN}>
+                <i className="material-icons left">verified_user</i>
+                Admin
+              </Link>
+            </li>
+          )}
+          <li>
+            <a href="#">
+              <i className="material-icons left">portrait</i>
+              {authUser.username}
+            </a>
+          </li>
+          <li>
+            <SignOutButton />
+          </li>
+        </Fragment>
+      );
+    } else {
+      links = (
+        <Fragment>
+          <li>
+            <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+          </li>
+        </Fragment>
+      );
+    }
 
     return (
       <div>
@@ -44,89 +84,17 @@ class NavigationAuth extends Component {
               menu
             </a>
             <ul className="right hide-on-med-and-down">
-              <li>
-                <Link to={ROUTES.HOME}>
-                  <i className="material-icons left">home</i>
-                  Home
-                </Link>
-              </li>
-              {/* <li>
-                <Link to="/browse">Browse</Link>
-              </li> */}
-              <li>
-                <Link to="/scan">
-                  <i className="material-icons left">search</i>
-                  Search
-                </Link>
-              </li>
-              {authUser.roles.includes(ROLES.ADMIN) && (
-                <li>
-                  <Link to={ROUTES.ADMIN}>
-                    <i className="material-icons left">
-                      verified_user
-                    </i>
-                    Admin
-                  </Link>
-                </li>
-              )}
-              <li>
-                <a href="#">
-                  <i className="material-icons left">portrait</i>
-                  {authUser.username}
-                </a>
-              </li>
-              <li>
-                <SignOutButton />
-              </li>
+              {links}
             </ul>
           </div>
         </nav>
 
-        {/* <ul className="sidenav" id="mobile-demo">
-          <li>
-            <Link to={ROUTES.HOME}>Home</Link>
-          </li>
-          <li>
-            <Link to="/browse">Browse</Link>
-          </li>
-          <li>
-            <Link to="/scan">
-              Scan<i className="material-icons">more_vert</i>
-            </Link>
-          </li>
-          {authUser.roles.includes(ROLES.ADMIN) && (
-            <li>
-              <Link to={ROUTES.ADMIN}>Admin</Link>
-            </li>
-          )}
-          <li>
-            {authUser.username}
-            <i className="material-icons">portrait</i>
-          </li>
-          <li>
-            <SignOutButton />
-          </li>
-        </ul> */}
+        <ul className="sidenav" id="mobile-demo">
+          {links}
+        </ul>
       </div>
     );
   }
 }
-
-const NavigationNonAuth = () => (
-  <nav>
-    <div className="nav-wrapper">
-      <div className="container">
-        <Link to="/" className="brand-logo">
-          Libre-Bib
-        </Link>
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li>
-            <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-);
 
 export default Navigation;

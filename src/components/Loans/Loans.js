@@ -63,7 +63,13 @@ class Loans extends Component {
 
             {loading && <div>Loading ...</div>}
 
-            {loans && <LoanList authUser={authUser} loans={loans} />}
+            {loans && (
+              <LoanList
+                authUser={authUser}
+                loans={loans}
+                all={this.props.all}
+              />
+            )}
 
             {!loans && <div>There are no loans ...</div>}
           </div>

@@ -93,10 +93,19 @@ class Firebase {
   loans = () => this.db.collection('loans');
 
   createLoan(user, book) {
+    let checkoutDate = Date.now();
+    let dueDate = new Date().setDate(new Date().getDate() + 7);
+
     this.loans().add({
       book,
       user,
+      checkoutDate,
+      dueDate
     });
+  }
+
+  deleteLoan(loanId) {
+    this.loan(loanId).delete();
   }
 }
 
