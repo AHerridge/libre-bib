@@ -1,11 +1,9 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import { withAuthorization } from '../Session';
-import { UserList, UserItem } from '../Users';
+import { UserList } from '../Users';
 import * as ROLES from '../../constants/roles';
-import * as ROUTES from '../../constants/routes';
 
 import Loans from '../Loans';
 
@@ -14,12 +12,8 @@ const AdminPage = () => (
     <h1>Admin</h1>
     <p>The Admin Page is accessible by every signed in admin user.</p>
 
-    <Switch>
-      <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
-      <Route exact path={ROUTES.ADMIN} component={UserList} />
-    </Switch>
-
-    <Loans all="true"/>
+    <Loans all="true" />
+    <UserList />
   </div>
 );
 

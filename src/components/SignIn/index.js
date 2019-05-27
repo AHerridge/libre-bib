@@ -39,7 +39,6 @@ class SignInGoogleBase extends Component {
           {
             username: socialAuthUser.user.displayName,
             email: socialAuthUser.user.email,
-            roles: [],
           },
           { merge: true },
         );

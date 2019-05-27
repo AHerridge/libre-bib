@@ -24,7 +24,7 @@ class LoanItem extends Component {
         <td>
           <a href="#">
             <i
-              className="material-icons"
+              className="material-icons red-text text-darken-2"
               onClick={firebase.deleteLoan.bind(firebase, loan.id)}
             >
               delete
