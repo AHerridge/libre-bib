@@ -24,36 +24,28 @@ class Loans extends Component {
   onListenForLoans = () => {
     this.setState({ loading: true });
 
-    this.unsubscribe = this.props.firebase
-      .loans()
-      .where('userId', '==', this.props.authUser.id)
-      .onSnapshot(snapshot => {
-        if (snapshot.size) {
-          let loans = [];
-          let loaded = 0;
-          snapshot.forEach(doc => {
-            let loan = {
-              id: doc.id,
-              book: {},
-              user: this.props.authUser,
-            };
+    this.unsubscribe = this.props.firebase.loans();
 
-            this.props.googlebooks
-              .findOne(`isbn: ${doc.data().bookId}`)
-              .then(result => {
-                loans[loans.indexOf(loan)].book = result;
+    if (this.props.all)
+      this.unsubscribe = this.unsubscribe.where(
+        'userId',
+        '==',
+        this.props.authUser.id,
+      );
 
-                loaded++;
-                if (loaded === loans.length)
-                  this.setState({ loans, loading: false });
-              });
+    this.unsubscribe = this.unsubscribe.onSnapshot(snapshot => {
+      if (snapshot.size) {
+        let loans = [];
 
-            loans.push(loan);
-          });
-        } else {
-          this.setState({ loans: null, loading: false });
-        }
-      });
+        snapshot.forEach(doc => {
+          loans.push({ id: doc.id, ...doc.data() });
+        });
+
+        this.setState({ loading: false, loans: loans });
+      } else {
+        this.setState({ loans: null, loading: false });
+      }
+    });
   };
 
   componentWillUnmount() {

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 import { withGoogleBooks } from '../GoogleBooks';
+import CheckoutButton from '../Checkout';
+import { withAuthorization, AuthUserContext } from '../Session';
 
 class BookDetails extends Component {
   constructor(props) {
@@ -28,7 +31,7 @@ class BookDetails extends Component {
                 <img
                   className="materialboxed responsive-img"
                   width="200"
-                  src={book.imageLinks.thumbnail}
+                  src={book.image}
                   alt="Book Cover"
                 />
               </div>
@@ -44,9 +47,11 @@ class BookDetails extends Component {
             </div>
             <div className="row">
               <div className="col s12" />
-              <button className="waves-effect waves-light btn-large">
-                Checkout
-              </button>
+              <AuthUserContext.Consumer>
+                {authUser => (
+                  <CheckoutButton book={book} authUser={authUser} />
+                )}
+              </AuthUserContext.Consumer>
             </div>
           </div>
         ) : (
@@ -61,4 +66,9 @@ class BookDetails extends Component {
   }
 }
 
-export default withGoogleBooks(BookDetails);
+const condition = authUser => !!authUser;
+
+export default compose(
+  withGoogleBooks,
+  withAuthorization(condition),
+)(BookDetails);

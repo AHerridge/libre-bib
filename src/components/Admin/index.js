@@ -16,6 +16,8 @@ const AdminPage = () => (
       <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
       <Route exact path={ROUTES.ADMIN} component={UserList} />
     </Switch>
+
+    {/* <LoanList /> */}
   </div>
 );
 

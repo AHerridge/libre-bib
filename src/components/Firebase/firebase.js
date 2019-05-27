@@ -53,8 +53,6 @@ class Firebase {
           .then(snapshot => {
             const dbUser = snapshot.data();
 
-            console.log(dbUser);
-
             // default empty roles
             // if (!dbUser.roles) {
             //   dbUser.roles = [];
@@ -63,9 +61,9 @@ class Firebase {
             // merge auth and db user
             authUser = {
               id: authUser.uid,
-              email: authUser.email,
-              emailVerified: authUser.emailVerified,
-              providerData: authUser.providerData,
+              // email: authUser.email,
+              // emailVerified: authUser.emailVerified,
+              // providerData: authUser.providerData,
               ...dbUser,
             };
 
@@ -93,6 +91,13 @@ class Firebase {
   loan = uid => this.db.doc(`loans/${uid}`);
 
   loans = () => this.db.collection('loans');
+
+  createLoan(user, book) {
+    this.loans().add({
+      book,
+      user,
+    });
+  }
 }
 
 export default Firebase;

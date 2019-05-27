@@ -28,8 +28,6 @@ class NavigationAuth extends Component {
   render() {
     const { authUser } = this.props;
 
-    console.log(authUser);
-
     return (
       <div>
         <nav>
