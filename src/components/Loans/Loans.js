@@ -24,16 +24,16 @@ class Loans extends Component {
   onListenForLoans = () => {
     this.setState({ loading: true });
 
-    this.unsubscribe = this.props.firebase.loans();
+    this.query = this.props.firebase.loans();
 
-    if (this.props.all)
-      this.unsubscribe = this.unsubscribe.where(
-        'userId',
+    if (!this.props.all)
+      this.query = this.query.where(
+        'user.id',
         '==',
         this.props.authUser.id,
       );
 
-    this.unsubscribe = this.unsubscribe.onSnapshot(snapshot => {
+    this.query = this.query.onSnapshot(snapshot => {
       if (snapshot.size) {
         let loans = [];
 
@@ -49,7 +49,7 @@ class Loans extends Component {
   };
 
   componentWillUnmount() {
-    this.unsubscribe();
+    this.query();
   }
 
   render() {
