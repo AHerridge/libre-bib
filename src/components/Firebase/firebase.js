@@ -3,13 +3,13 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 const config = {
-  apiKey: 'AIzaSyDFcLZ24jLC-1wCHGib6N4m-4IwKO5OrY0',
-  authDomain: 'libre-bib.firebaseapp.com',
-  databaseURL: 'https://libre-bib.firebaseio.com',
-  projectId: 'libre-bib',
-  storageBucket: 'libre-bib.appspot.com',
-  messagingSenderId: '762004849458',
-  appId: '1:762004849458:web:c2a949daa8d1d2e6',
+  apiKey: '',
+  authDomain: '',
+  databaseURL: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: '',
 };
 
 class Firebase {
@@ -39,7 +39,7 @@ class Firebase {
   // *** Auth API ***
 
   doSignInWithGoogle = () =>
-    this.auth.signInWithPopup(this.googleProvider);
+    this.auth.signInWithRedirect(this.googleProvider);
 
   doSignOut = () => this.auth.signOut();
 
