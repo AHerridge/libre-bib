@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "firebase": "^5.11.1",
     "materialize-css": "^1.0.0-rc.2",
     "quagga": "^0.12.1",
